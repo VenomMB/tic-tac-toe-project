@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     document.addEventListener('gameStarted', () => {
-        let listOfTicTacToe = Array(9).fill(0).map((_, index) => { return { id: index, value: null, bool: true } });
+        let listOfTicTacToe = Array(9).fill(0).map((_, index) => { return { id: index, value: null, isFilled: true } });
         const board = document.querySelectorAll(".block");
         let flag = true;
         let sum = 0;

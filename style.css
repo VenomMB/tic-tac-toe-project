@@ -22,7 +22,9 @@
 
 h1{
     font-family: 'Mouse Memoirs', sans-serif;
-    color: #ffcc00; 
+    color: #ffcc00;
+    font-size: 300%; 
+    height: 10%;
 }
 
 body{

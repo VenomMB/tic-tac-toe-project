@@ -34,13 +34,6 @@ const gameStates = {
 
 let gameResult;
 
-const resetGame = () => {
-    game.style.display = 'flex';
-    boardGame.style.display = 'grid';
-
-    document.dispatchEvent(startGameEvent);
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
 
 
@@ -51,14 +44,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         mainMenu.style.display = "none";
         document.dispatchEvent(startGameEvent);
     }
-    
+
     homeButton.onclick = () => {
 
         game.style.display = "none";
         mainMenu.style.display = "flex";
     }
-    
-   
+
+
 
     document.addEventListener('gameStarted', () => {
         let listOfTicTacToe = Array(9).fill(0).map((_, index) => { return { id: index, value: null, isFilled: false } });
@@ -66,13 +59,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let flag = true;
 
         resetButton.onclick = () => {
-            console.log("Hi")
-            resetGame();
+            console.log("Hi");
+            board.forEach((cell, index) => {
+                cell.innerHTML = `<div class="block" id="${index}"></div>`
+            })
+            resultElement.style.display = 'none';
+            document.dispatchEvent(startGameEvent);
         }
 
         board.forEach((cell) => {
-            cell.onclick = () => {
-
+            cell.onclick = (event) => {
+                
                 listOfTicTacToe.forEach((object, index) => {
                     if (cell.id == object.id) {
                         if (object.isFilled === false) {
@@ -83,7 +80,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 object.isFilled = true;
                                 let winerX = checkresult(listOfTicTacToe);
                                 if (winerX == true) {
-                                    console.log("Win X");
                                     points1++;
                                     pointsPlayer1.innerHTML = `Player 1: ${points1}`
                                     resultElement.innerHTML = "Player 1 won"
@@ -99,7 +95,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 object.isFilled = true;
                                 let winerO = checkresult(listOfTicTacToe);
                                 if (winerO == true) {
-                                    console.log("Win O");
                                     points2++;
                                     pointsPlayer2.innerHTML = `Player 2: ${points2}`
                                     resultElement.innerHTML = "Player 2 won"
@@ -120,11 +115,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
                 if (isDraw && checkresult(listOfTicTacToe) === false) {
-                    console.log('draw!!!')
                     resultElement.innerHTML = "Draw"
                     gameResult = gameStates.draw;
                 }
-
 
 
             }

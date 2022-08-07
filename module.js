@@ -1,4 +1,4 @@
-function checkresult(list) {
+export const checkresult = (list) => {
     for (let i = 0; i < 9; i += 3) {
         if (list[i].value != null && (list[i].value == list[i + 1].value && list[i].value == list[i + 2].value)) {
             return true;
@@ -24,4 +24,3 @@ function checkresult(list) {
 
 
 }
-export {checkresult};

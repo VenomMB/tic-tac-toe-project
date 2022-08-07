@@ -13,45 +13,45 @@
 </head>
 
 <body>
-    <div class="mainMenu">
-        <h1>Tic Tac Toe</h1>
-        <button type="button" class="btn btn-outline-warning" id="startGame">Start Game</button>
-    </div>
-
-    <form>
-        <div class="players">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username1" name="username1"
-                placeholder="Player №2" type="text">
+    <div id="root">
+        <div class="mainMenu">
+            <h1>Tic Tac Toe</h1>
+            <button type="button" class="btn btn-outline-warning" id="startGame">Start Game</button>
         </div>
-        <div class="players">
-            <input class="form-control mx-auto w-auto" id="username2" name="username2" placeholder="Player №1"
-                type="password">
-        </div>
-        <button class="btn btn-primary1" type="button" id="startPlay">Play</button>
-    </form>
-
-
-    <div id="game">
-        <div class="panel-buttons">
-            <img class="home" src="Assets/home.png" alt="home">
-            <img class="reset" src="Assets/reload.png" alt="reload">
-        </div>
-        <div class="container">
-            <div id="board">
-                <div class="block" id="0" data-cell></div>
-                <div class="block" id="1" data-cell></div>
-                <div class="block" id="2" data-cell></div>
-                <div class="block" id="3" data-cell></div>
-                <div class="block" id="4" data-cell></div>
-                <div class="block" id="5" data-cell></div>
-                <div class="block" id="6" data-cell></div>
-                <div class="block" id="7" data-cell></div>
-                <div class="block" id="8" data-cell></div>
+    
+        <div id="game">
+            <div class="panel-buttons">
+                <div>
+                    <img class="home" src="Assets/home.png" alt="home">
+                </div>
+                <div class="reset">
+                    <img src="Assets/reload.png" alt="reload">
+                </div>
             </div>
-
+            <div class="container">
+                <div id="board">
+                    <div class="block" id="0" data-cell></div>
+                    <div class="block" id="1" data-cell></div>
+                    <div class="block" id="2" data-cell></div>
+                    <div class="block" id="3" data-cell></div>
+                    <div class="block" id="4" data-cell></div>
+                    <div class="block" id="5" data-cell></div>
+                    <div class="block" id="6" data-cell></div>
+                    <div class="block" id="7" data-cell></div>
+                    <div class="block" id="8" data-cell></div>
+                </div>
+            </div>
+            <div class="result-panel">
+                <h2 id="result"></h2>
+                <div id="pointsUser1">Player 1: 0</div>
+                <div id="pointsUser2">Player 2: 0</div>
+            </div>
         </div>
     </div>
-    <script src="index.js"></script>
+    
+
+    <script type="module" src="index.js"></script>
+    <script type="module" src="module.js"></script>
 
 </body>
 

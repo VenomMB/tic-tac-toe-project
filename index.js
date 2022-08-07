@@ -1,14 +1,30 @@
-// import { checkresult } from 'module';
+import { checkresult } from './module.js';
+
+// Custom Event
 const startGameEvent = new Event("gameStarted");
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     const startGameButton = document.getElementById("startGame");
-//     startGameButton.onclick = () => {
-//         const mainMenu = document.querySelector(".mainMenu");
-//         const forms = document.getElementsByTagName("form");
-//         mainMenu.style.display = "none";
-//         forms.style.display = "flex";
-//     }
-// })
+
+const button = document.getElementById("startGame");
+const game = document.getElementById("game");
+const boardGame = document.getElementById("board");
+
+const homeButton = document.querySelector(".home");
+const mainMenu = document.querySelector(".mainMenu");
+const resetButton = document.querySelector(".reset");
+
+const resultElement = document.getElementById("result");
+const pointsPlayer1 = document.getElementById("pointsUser1")
+const pointsPlayer2 = document.getElementById("pointsUser2")
+
+const gameStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '800px',
+}
+
+
+let points1 = 0;
+let points2 = 0;
 
 const gameStates = {
     xWon: 'xWon',
@@ -18,58 +34,42 @@ const gameStates = {
 
 let gameResult;
 
+const resetGame = () => {
+    game.style.display = 'flex';
+    boardGame.style.display = 'grid';
+
+    document.dispatchEvent(startGameEvent);
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
-    const button = document.getElementById("startGame");
-    const homeButton = document.querySelector(".home");
-    const resetButton = document.querySelector(".reset");
+
 
     button.onclick = () => {
-        const game = document.getElementById("game");
-        const mainMenu = document.querySelector(".mainMenu");
-        game.style.display = "block";
+        Object.entries(gameStyles).forEach(([key, value]) => {
+            game.style[key] = value;
+        });
         mainMenu.style.display = "none";
         document.dispatchEvent(startGameEvent);
     }
+    
     homeButton.onclick = () => {
-        const game = document.getElementById("game");
-        const mainMenu = document.querySelector(".mainMenu");
+
         game.style.display = "none";
         mainMenu.style.display = "flex";
     }
-    resetButton.onclick = () => {
-
-    }
+    
+   
 
     document.addEventListener('gameStarted', () => {
         let listOfTicTacToe = Array(9).fill(0).map((_, index) => { return { id: index, value: null, isFilled: false } });
         const board = document.querySelectorAll(".block");
         let flag = true;
-        function checkresult(list) {
-            for (let i = 0; i < 9; i += 3) {
-                if (list[i].value != null && (list[i].value == list[i + 1].value && list[i].value == list[i + 2].value)) {
-                    return true;
-                }
-            }
-            for (let i = 0; i < 3; i++) {
-                if (list[i].value != null && (list[i].value == list[i + 3].value && list[i].value == list[i + 6].value)) {
-                    return true;
-                }
-            }
-            for (let i = 0; i < 1; i++) {
-                if (list[i].value != null && (list[i].value == list[i + 4].value && list[i].value == list[i + 8].value)) {
-                    return true;
-                }
-            }
-            for (let i = 2; i > 1; i--) {
-                if (list[i].value != null && (list[i].value == list[i + 2].value && list[i].value == list[i + 4].value)) {
-                    return true;
-                }
-            }
-            return false;
 
-
-
+        resetButton.onclick = () => {
+            console.log("Hi")
+            resetGame();
         }
+
         board.forEach((cell) => {
             cell.onclick = () => {
 
@@ -84,6 +84,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 let winerX = checkresult(listOfTicTacToe);
                                 if (winerX == true) {
                                     console.log("Win X");
+                                    points1++;
+                                    pointsPlayer1.innerHTML = `Player 1: ${points1}`
+                                    resultElement.innerHTML = "Player 1 won"
                                     gameResult = gameStates.xWon;
                                     return;
                                 }
@@ -97,6 +100,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 let winerO = checkresult(listOfTicTacToe);
                                 if (winerO == true) {
                                     console.log("Win O");
+                                    points2++;
+                                    pointsPlayer2.innerHTML = `Player 2: ${points2}`
+                                    resultElement.innerHTML = "Player 2 won"
                                     gameResult = gameStates.yWon;
                                     return;
                                 }
@@ -113,8 +119,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
 
 
-                if (isDraw) {
+                if (isDraw && checkresult(listOfTicTacToe) === false) {
                     console.log('draw!!!')
+                    resultElement.innerHTML = "Draw"
                     gameResult = gameStates.draw;
                 }
 
